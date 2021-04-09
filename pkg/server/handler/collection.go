@@ -7,7 +7,6 @@ import (
 
 	"20dojo-online/pkg/dcontext"
 	"20dojo-online/pkg/http/response"
-	"20dojo-online/pkg/server/model"
 )
 
 // CollectionItem レスポンスの中身の構造体
@@ -18,7 +17,7 @@ type CollectionItem struct {
 	HasItem      bool   `json:"hasItem"`
 }
 
-type collectionListResponse struct {
+type CollectionListResponse struct {
 	Collections []CollectionItem `json:"collections"`
 }
 
@@ -44,7 +43,7 @@ func (h *Handler) HandleCollectionList() http.HandlerFunc {
 		}
 
 		//user_collection_itemテーブルをもとにユーザのアイテム所持情報を取得
-		userCollectionItems, err := model.SelectUserCollectionsByUserID(userID)
+		userCollectionItems, err := h.model.SelectUserCollectionsByUserID(userID)
 		if err != nil {
 			log.Println(err)
 			response.InternalServerError(writer, "Internal Server Error")
@@ -69,7 +68,7 @@ func (h *Handler) HandleCollectionList() http.HandlerFunc {
 
 			collectionItemSlice = append(collectionItemSlice, c)
 		}
-		response.Success(writer, &collectionListResponse{Collections: collectionItemSlice})
+		response.Success(writer, &CollectionListResponse{Collections: collectionItemSlice})
 
 	}
 }
