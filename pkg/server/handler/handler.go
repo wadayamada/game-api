@@ -5,10 +5,10 @@ import (
 )
 
 type Handler struct {
-	model *model.Model
+	model model.ModelInterface
 }
 
-func NewHandler(m *model.Model) *Handler {
+func NewHandler(m model.ModelInterface) *Handler {
 	return &Handler{
 		model: m,
 	}

@@ -96,7 +96,7 @@ func (h *Handler) HandleGachaDraw() http.HandlerFunc {
 		}
 
 		// user_collection_itemテーブルをもとにユーザのアイテム所持情報を取得
-		userCollectionItems, err := model.SelectUserCollectionsByUserID(userID)
+		userCollectionItems, err := h.model.SelectUserCollectionsByUserID(userID)
 		if err != nil {
 			log.Println(err)
 			response.InternalServerError(writer, "Internal Server Error")
