@@ -13,7 +13,7 @@ type UserCollectionItem struct {
 }
 
 // SelectUserCollectionsByPrimaryKey user_collection_itemテーブルをもとにユーザのアイテム所持情報を取得
-func SelectUserCollectionsByUserID(id string) ([]*UserCollectionItem, error) {
+func (m *Model) SelectUserCollectionsByUserID(id string) ([]*UserCollectionItem, error) {
 	rows, err := db.Conn.Query("SELECT user_id,collection_item_id FROM user_collection_item where user_id=?", id)
 	if err != nil {
 		log.Println(err)
